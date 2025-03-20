@@ -10,6 +10,7 @@ import {
 } from "@middlewares/RequestHandler";
 import romanNumeralRoutes from "@routes/RomanNumeralRoutes";
 import { setupSwagger } from "@configs/swagger";
+import debugRoutes from "@routes/debugRoutes";
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(
 );
 
 // Middleware
+app.use("/debug", debugRoutes);
 app.use(requestLogger);
 app.use(detectSuspiciousActivity);
 app.use(rateLimiter);
