@@ -1,0 +1,11 @@
+components:
+  schemas:
+    RomanNumeralResponse:
+      type: object
+      properties:
+        input:
+          type: string
+          example: "1"
+        output:
+          type: string
+          example: "I"

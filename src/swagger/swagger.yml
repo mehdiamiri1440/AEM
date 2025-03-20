@@ -1,0 +1,20 @@
+openapi: 3.0.0
+info:
+  title: Roman Numeral API
+  version: 1.0.0
+  description: API that converts numbers to Roman numerals
+  contact:
+    name: Mehdi Amiri
+    url: https://github.com/mehdiamiri1440/AEM
+servers:
+  - url: http://localhost:8080
+    description: Local Development Server
+paths:
+  /romannumeral:
+    $ref: "./paths/romannumeral.yml"
+  /health:
+    $ref: "./paths/health.yml"
+tags:
+  $ref: "./tags.yml"
+components:
+  $ref: "./components/schemas.yml"

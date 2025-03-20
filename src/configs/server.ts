@@ -9,6 +9,7 @@ import {
   rateLimiter,
 } from "@middlewares/RequestHandler";
 import romanNumeralRoutes from "@routes/RomanNumeralRoutes";
+import { setupSwagger } from "@configs/swagger";
 
 const app = express();
 
@@ -52,5 +53,8 @@ app.get("/metrics", async (req, res) => {
 
 // Sentry Error Handling Middleware
 app.use(Sentry.Handlers.errorHandler());
+
+// Setup Swagger
+setupSwagger(app);
 
 export default app;

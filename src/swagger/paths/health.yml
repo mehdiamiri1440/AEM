@@ -1,0 +1,20 @@
+/health:
+  get:
+    summary: API Health Check
+    description: Returns the health status of the API.
+    tags:
+      - HealthCheck
+    responses:
+      "200":
+        description: API is running successfully
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: "healthy"
+                uptime:
+                  type: number
+                  example: 12345
