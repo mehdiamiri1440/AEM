@@ -1,8 +1,8 @@
 import swaggerUi from "swagger-ui-express";
 import fs from "fs";
 import yaml from "js-yaml";
+import { Application } from "express";
 import path from "path";
-import app from "@configs/server";
 
 // Function to load YAML files safely
 const loadYamlFile = (filePath: string) => {
@@ -33,4 +33,7 @@ const swaggerDocument = {
   components: (loadYamlFile("components/schemas.yml") as { components: any })
     .components,
 };
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+export const setupSwagger = (app: Application): void => {
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+};
