@@ -53,10 +53,47 @@ app.get("/health", (req, res) => {
   res.status(200).json({ status: "healthy", uptime: process.uptime() });
 });
 
-// Prometheus Metrics
+// Create a Registry
+const register = new promClient.Registry();
+
+// Define a counter metric
+const httpRequestCounter = new promClient.Counter({
+  name: "http_requests_total",
+  help: "Total number of HTTP requests",
+  labelNames: ["method", "route", "status"],
+});
+
+// Define a histogram for response time
+const responseTimeHistogram = new promClient.Histogram({
+  name: "http_response_time_seconds",
+  help: "HTTP request duration in seconds",
+  labelNames: ["method", "route", "status"],
+  buckets: [0.1, 0.3, 0.5, 1, 1.5], // Define time buckets
+});
+
+// Register metrics
+register.registerMetric(httpRequestCounter);
+register.registerMetric(responseTimeHistogram);
+promClient.collectDefaultMetrics({ register });
+
+// Middleware to track response time
+app.use((req, res, next) => {
+  const end = responseTimeHistogram.startTimer();
+  res.on("finish", () => {
+    httpRequestCounter.inc({
+      method: req.method,
+      route: req.path,
+      status: res.statusCode,
+    });
+    end({ method: req.method, route: req.path, status: res.statusCode });
+  });
+  next();
+});
+
+// Expose metrics endpoint
 app.get("/metrics", async (req, res) => {
-  res.set("Content-Type", promClient.register.contentType);
-  res.end(await promClient.register.metrics());
+  res.set("Content-Type", register.contentType);
+  res.end(await register.metrics());
 });
 
 // Sentry Error Handling Middleware
