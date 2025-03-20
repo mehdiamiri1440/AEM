@@ -28,7 +28,18 @@ jobs:
         run: npm test
 
       - name: 🏗️ Build the Project
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: "adobe-h6"
+          SENTRY_PROJECT: "node"
         run: npm run build
+
+      - name: 📡 Upload Source Maps to Sentry
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: "adobe-h6"
+          SENTRY_PROJECT: "node"
+        run: sentry-cli releases files $VERSION upload-sourcemaps dist/ --org $SENTRY_ORG --project $SENTRY_PROJECT
 
   deploy:
     name: 🚀 Deploy to Railway
