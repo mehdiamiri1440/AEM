@@ -10,9 +10,8 @@ on:
 
 jobs:
   build-and-test:
-    name: 🛠️ Build and Test
+    name: 🛠️ Build & Test
     runs-on: ubuntu-latest
-
     steps:
       - name: 🛎️ Checkout Repository
         uses: actions/checkout@v4
@@ -28,44 +27,15 @@ jobs:
       - name: 🔍 Run Tests
         run: npm test
 
-      - name: 📊 Generate Test Coverage Report
-        run: npm test -- --coverage
-
-  docker-build-and-push:
-    name: 📦 Build and Push Docker Image
-    needs: build-and-test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: 🛎️ Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: 🔑 Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: 📦 Build Docker Image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/roman-numeral-api:latest .
-
-      - name: 🚀 Push Docker Image to Docker Hub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/roman-numeral-api:latest
+      - name: 🏗️ Build the Project
+        run: npm run build
 
   deploy:
-    name: 🚀 Deploy to Server
-    needs: docker-build-and-push
+    name: 🚀 Deploy to Railway
     runs-on: ubuntu-latest
-
+    needs: build-and-test
     steps:
-      - name: 🔑 SSH into Server and Deploy
-        uses: appleboy/ssh-action@v0.1.7
+      - name: 🚀 Trigger Railway Deployment
+        uses: AEM@main
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/roman-numeral-api:latest
-            docker stop roman-numeral-api || true
-            docker rm roman-numeral-api || true
-            docker run -d -p 8080:8080 --env-file .env --name roman-numeral-api ${{ secrets.DOCKER_USERNAME }}/roman-numeral-api:latest
+          railway_token: ${{ secrets.RAILWAY_API_TOKEN }}
