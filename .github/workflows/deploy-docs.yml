@@ -1,12 +1,12 @@
-name: Deploy Docs
+name: Deploy Documentation
 
 on:
   push:
     branches:
-      - main # Adjust based on your branch name
+      - main # Change this if your default branch is different
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -18,11 +18,14 @@ jobs:
         run: npm install
 
       - name: Generate Documentation
-        run: npm run generate-docs
+        run: npm run generate-docs # Ensure this script generates docs in `docs/`
+
+      - name: Fix Jekyll Build
+        run: touch docs/.nojekyll # Prevents GitHub Pages from ignoring files
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: docs
+          folder: docs # Ensure docs exist
           token: ${{ secrets.GH_PAGES_DEPLOY_TOKEN }}
