@@ -1,21 +1,18 @@
-# Use an official Node.js runtime as the base image
-FROM node:18
-
-# Set working directory inside container
+# Build step
+FROM node:18-alpine AS build
 WORKDIR /app
-
-# Copy package.json and install dependencies
-COPY package.json package-lock.json ./
+COPY package*.json ./
 RUN npm install
-
-# Copy the rest of the app files
 COPY . .
-
-# Compile TypeScript
 RUN npm run build
+RUN cp -r src/swagger dist/swagger  # <-- Copy Swagger files
 
-# Expose the port
+# Production step
+FROM node:18-alpine
+WORKDIR /app
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/package.json ./package.json
+
 EXPOSE 8080
-
-# Start the app
-CMD ["npm", "start"]
+CMD ["node", "dist/index.js"]
