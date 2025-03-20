@@ -12,8 +12,8 @@
     "start": "node -r tsconfig-paths/register dist/index.js",
     "generate-docs": "npx typedoc --out docs src/",
     "deploy-docs": "npm run generate-docs && git add docs && git commit -m '📚 Update docs' && git push origin gh-pages",
-    "build": "cross-env SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN tsc && tsc-alias && copyfiles -u 1 src/swagger/** dist/",
-    "sentry:sourcemaps": "sentry-cli releases files $VERSION upload-sourcemaps dist/ --org adobe-h6 --project node"
+    "build": "cross-env SENTRY_RELEASE=roman-numeral-api@$(git rev-parse --short HEAD) tsc && tsc-alias && copyfiles -u 1 src/swagger/** dist/",
+  "sentry:sourcemaps": "sentry-cli releases new $SENTRY_RELEASE && sentry-cli sourcemaps upload --release $SENTRY_RELEASE --org adobe-h6 --project node ./dist"
   },
   "repository": {
     "type": "git",
