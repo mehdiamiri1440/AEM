@@ -1,7 +1,8 @@
+// src/config/server.ts
 import express from "express";
 import cors from "cors";
 import promClient from "prom-client";
-import * as Sentry from "@sentry/node";
+import Sentry from "@configs/sentry";
 import {
   requestLogger,
   detectSuspiciousActivity,
@@ -22,6 +23,18 @@ app.use(cors());
 app.use(requestLogger);
 app.use(detectSuspiciousActivity);
 app.use(rateLimiter);
+
+// Root Route - API Info
+app.get("/", (req, res) => {
+  res.status(200).json({
+    message: "Welcome to the Roman Numeral API!",
+    usage: {
+      convert: "/romannumeral?query={number}",
+      health: "/health",
+      metrics: "/metrics",
+    },
+  });
+});
 
 // API Route
 app.use("/romannumeral", romanNumeralRoutes);
