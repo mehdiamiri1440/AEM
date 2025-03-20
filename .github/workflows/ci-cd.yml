@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🛎️ Checkout Repository
-        uses: actions/checkout@v4 # ✅ Correct GitHub action
+        uses: actions/checkout@v4
 
       - name: 🏗️ Set Up Node.js
-        uses: actions/setup-node@v4 # ✅ Correct GitHub action
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
@@ -36,14 +36,18 @@ jobs:
     needs: build-and-test
     steps:
       - name: 🛎️ Checkout Repository
-        uses: actions/checkout@v4 # ✅ Correct GitHub action
+        uses: actions/checkout@v4
 
       - name: 🛠️ Install Railway CLI
         run: |
           curl -fsSL https://raw.githubusercontent.com/RailwayApp/cli/main/install.sh | sh
+          export PATH="$HOME/.railway/bin:$PATH"
           echo "$HOME/.railway/bin" >> $GITHUB_PATH
+          railway --version  # ✅ Ensure Railway CLI is installed
 
       - name: 🚀 Deploy to Railway
-        run: railway up
+        run: |
+          export PATH="$HOME/.railway/bin:$PATH"
+          railway up
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
