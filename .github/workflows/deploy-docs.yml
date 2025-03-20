@@ -3,7 +3,7 @@ name: Deploy Docs
 on:
   push:
     branches:
-      - main # Adjust this if your main branch has a different name
+      - main # Adjust based on your branch name
 
 jobs:
   build:
@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Install Dependencies
         run: npm install
@@ -23,3 +25,4 @@ jobs:
         with:
           branch: gh-pages
           folder: docs
+          token: ${{ secrets.GH_PAGES_DEPLOY_TOKEN }}
