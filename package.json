@@ -10,7 +10,8 @@
     "test:ci": "jest --ci --coverage",
     "dev": "ts-node-dev --require tsconfig-paths/register --respawn src/index.ts",
     "build": "tsc && tsc-alias && mkdir -p dist/swagger && cp -r src/swagger/* dist/swagger/",
-    "start": "node -r tsconfig-paths/register dist/index.js"
+    "start": "node -r tsconfig-paths/register dist/index.js",
+    "generate-docs": "npx typedoc --out docs src/"
   },
   "repository": {
     "type": "git",
@@ -54,6 +55,7 @@
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.11",
     "tsconfig-paths": "^4.2.0",
+    "typedoc": "^0.28.1",
     "typescript": "^5.8.2"
   }
 }
