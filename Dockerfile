@@ -1,18 +1,21 @@
-# Use Node.js LTS version
-FROM node:18-alpine
+# Use an official Node.js runtime as the base image
+FROM node:18
 
-# Set working directory
+# Set working directory inside container
 WORKDIR /app
 
 # Copy package.json and install dependencies
 COPY package.json package-lock.json ./
-RUN npm install --production
+RUN npm install
 
-# Copy project files
+# Copy the rest of the app files
 COPY . .
 
-# Expose the port the app runs on
+# Compile TypeScript
+RUN npm run build
+
+# Expose the port
 EXPOSE 8080
 
-# Command to run the application
-CMD ["node", "dist/index.js"]
+# Start the app
+CMD ["npm", "start"]
