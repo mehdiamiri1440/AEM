@@ -9,10 +9,10 @@
     "test:verbose": "jest --verbose",
     "test:ci": "jest --ci --coverage",
     "dev": "ts-node-dev --require tsconfig-paths/register --respawn src/index.ts",
-    "build": "tsc && tsc-alias && mkdir -p dist/swagger && cp -r src/swagger/* dist/swagger/ && npm run sentry:sourcemaps",
     "start": "node -r tsconfig-paths/register dist/index.js",
     "generate-docs": "npx typedoc --out docs src/",
     "deploy-docs": "npm run generate-docs && git add docs && git commit -m '📚 Update docs' && git push origin gh-pages",
+    "build": "cross-env SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN tsc && tsc-alias && copyfiles -u 1 src/swagger/** dist/ && sentry-cli releases files $VERSION upload-sourcemaps dist/ --org adobe-h6 --project node",
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org adobe-h6 --project node ./dist && sentry-cli sourcemaps upload --org adobe-h6 --project node ./dist"
   },
   "repository": {
@@ -31,6 +31,7 @@
     "axios": "^1.8.3",
     "copyfiles": "^2.4.1",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
