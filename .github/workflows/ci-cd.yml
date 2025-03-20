@@ -42,11 +42,13 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: "adobe-h6"
           SENTRY_PROJECT: "node"
-          SENTRY_RELEASE: "roman-numeral-api@$(git rev-parse --short HEAD)" # Use Git SHA as version
         run: |
+          export SENTRY_RELEASE="roman-numeral-api@$(git rev-parse --short HEAD)"
+          echo "SENTRY_RELEASE=$SENTRY_RELEASE"
           sentry-cli releases new $SENTRY_RELEASE
           sentry-cli releases files $SENTRY_RELEASE upload-sourcemaps dist/ --org $SENTRY_ORG --project $SENTRY_PROJECT
           sentry-cli releases finalize $SENTRY_RELEASE
+
   deploy:
     name: 🚀 Deploy to Railway
     runs-on: ubuntu-latest
