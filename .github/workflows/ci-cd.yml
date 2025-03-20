@@ -27,6 +27,9 @@ jobs:
       - name: 🔍 Run Tests
         run: npm test
 
+      - name: 🛠️ Install Sentry CLI
+        run: npm install -g @sentry/cli
+
       - name: 🏗️ Build the Project
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
