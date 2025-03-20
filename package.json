@@ -13,7 +13,6 @@
     "start": "node -r tsconfig-paths/register dist/index.js",
     "generate-docs": "npx typedoc --out docs src/",
     "deploy-docs": "npm run generate-docs && git add docs && git commit -m '📚 Update docs' && git push origin gh-pages"
-}
   },
   "repository": {
     "type": "git",
