@@ -9,6 +9,8 @@ info:
 servers:
   - url: http://localhost:8080
     description: Local Development Server
+  - url: https://aem-production.up.railway.app
+    description: Railway Production Server
 paths:
   /romannumeral:
     $ref: "./paths/romannumeral.yml"

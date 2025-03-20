@@ -18,7 +18,13 @@ app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 
 // Enable CORS
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // Allow all origins (change to specific domain in production)
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 // Middleware
 app.use(requestLogger);
