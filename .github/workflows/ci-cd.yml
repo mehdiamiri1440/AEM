@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🛎️ Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4 # ✅ Correct GitHub action
 
       - name: 🏗️ Set Up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4 # ✅ Correct GitHub action
         with:
           node-version: 18
 
@@ -35,7 +35,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-and-test
     steps:
-      - name: 🚀 Trigger Railway Deployment
-        uses: AEM@main
-        with:
-          railway_token: ${{ secrets.RAILWAY_API_TOKEN }}
+      - name: 🛎️ Checkout Repository
+        uses: actions/checkout@v4 # ✅ Correct GitHub action
+
+      - name: 🛠️ Install Railway CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/RailwayApp/cli/main/install.sh | sh
+          echo "$HOME/.railway/bin" >> $GITHUB_PATH
+
+      - name: 🚀 Deploy to Railway
+        run: railway up
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
