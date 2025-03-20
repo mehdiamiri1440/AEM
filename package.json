@@ -9,7 +9,7 @@
     "test:verbose": "jest --verbose",
     "test:ci": "jest --ci --coverage",
     "dev": "ts-node-dev --require tsconfig-paths/register --respawn src/index.ts",
-    "build": "tsc && cp -r src/swagger dist/swagger",
+    "build": "tsc && tsc-alias && copyfiles -u 1 \"src/swagger/**\" dist/",
     "start": "node -r tsconfig-paths/register dist/index.js"
   },
   "repository": {
