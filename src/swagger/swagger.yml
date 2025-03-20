@@ -1,22 +1,34 @@
-openapi: 3.0.0
+openapi: "3.0.0"
 info:
-  title: Roman Numeral API
-  version: 1.0.0
-  description: API that converts numbers to Roman numerals
-  contact:
-    name: Mehdi Amiri
-    url: https://github.com/mehdiamiri1440/AEM
+  title: "Roman Numeral API"
+  version: "1.0.0"
 servers:
-  - url: http://localhost:8080
-    description: Local Development Server
-  - url: https://aem-production.up.railway.app
-    description: Railway Production Server
+  - url: "https://aem-production.up.railway.app"
+    description: "Production Server"
 paths:
   /romannumeral:
-    $ref: "./paths/romannumeral.yml"
-  /health:
-    $ref: "./paths/health.yml"
-tags:
-  $ref: "./tags.yml"
-components:
-  $ref: "./components/schemas.yml"
+    get:
+      summary: "Convert numbers to Roman numerals"
+      description: "Converts an integer (1-3999) into its Roman numeral representation."
+      parameters:
+        - name: "query"
+          in: "query"
+          required: true
+          schema:
+            type: "integer"
+            minimum: 1
+            maximum: 3999
+      responses:
+        "200":
+          description: "Successfully converted number to Roman numeral"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  input:
+                    type: string
+                    example: "23"
+                  output:
+                    type: string
+                    example: "XXIII"
