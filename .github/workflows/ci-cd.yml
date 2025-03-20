@@ -38,12 +38,10 @@ jobs:
       - name: 🛎️ Checkout Repository
         uses: actions/checkout@v4
 
-      - name: 🛠️ Install Railway CLI (Alternative)
-        run: |
-          npm install -g @railway/cli
-          railway --version  # ✅ Ensure Railway CLI is installed
+      - name: 🛠️ Install Railway CLI
+        run: npm install -g @railway/cli
 
       - name: 🚀 Deploy to Railway
-        run: railway up
+        run: railway up --service ${{ secrets.RAILWAY_SERVICE_ID }}
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
