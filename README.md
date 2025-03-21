@@ -32,7 +32,7 @@ Here's what happens when a user sends a request to `GET /romannumeral?query=44`:
 2. **🔀 Routing Logic**
 
    - Routed to `src/routes/RomanNumeralRoutes.ts`
-   - Passes to `RomanNumeralController.convertToRoman`
+   - Passes to `RomanNumeralController.convert`
 
 3. **📋 Validation Layer**
 
@@ -44,7 +44,7 @@ Here's what happens when a user sends a request to `GET /romannumeral?query=44`:
 
 4. **🧠 Business Logic**
 
-   - Valid input reaches `RomanNumeralService.convertToRoman`
+   - Valid input reaches `RomanNumeralService.toRoman`
    - Handles conversion using clean algorithmic logic
 
 5. **📤 Response**
@@ -68,8 +68,77 @@ Here's what happens when a user sends a request to `GET /romannumeral?query=44`:
    - `/health` reports uptime and status
 
 9. **🚨 Error Monitoring**
+
    - Uncaught errors reported to **Sentry**
    - Captured from centralized error middleware
+
+10. **📦 Instrumentation**
+    - `instrument.ts` injects monitoring (Sentry, Prometheus, Logger) globally
+
+---
+
+## 📦 Important Folders & Files
+
+### `src/configs`
+
+- `dotenvConfig.ts` – Loads `.env` variables
+- `server.ts` – Creates and configures Express app
+- `sentry.ts` – Initializes and connects Sentry
+- `swagger.ts` – Sets up Swagger middleware
+
+### `src/controllers`
+
+- `BaseController.ts` – Shared behavior for all controllers
+- `RomanNumeralController.ts` – Handles `/romannumeral` route logic
+
+### `src/enums`
+
+- `HttpStatus.ts` – Named constants for HTTP response codes
+
+### `src/middlewares`
+
+- `RequestHandler.ts` – Logs requests
+- `ResponseHandler.ts` – Wraps responses uniformly
+
+### `src/routes`
+
+- `BaseRouter.ts` – Shared logic across all routers
+- `RomanNumeralRoutes.ts` – Main endpoint routes
+- `debugRoutes.ts` – Development-only routes
+
+### `src/services`
+
+- `BaseService.ts` – Optional parent service
+- `LoggerService.ts` – Uses Winston to log to console/files
+- `MetricsService.ts` – Exposes Prometheus metrics
+- `RomanNumeralService.ts` – Core conversion logic
+
+### `src/tests`
+
+- Uses `Jest` and `Supertest` to verify routes, services, and controllers
+
+### `src/types`
+
+- `RomanNumeralTypes.ts` – Custom types/interfaces
+
+### `src/utils`
+
+- `Validator.ts` – Validation helpers
+
+### `src/swagger`
+
+- `swagger.yml`, `tags.yml`, `components/`, `paths/` – OpenAPI 3.0 schema
+
+---
+
+## 🧠 OOP Design
+
+- **Controllers** extend `BaseController`
+- **Routers** inherit shared logic from `BaseRouter`
+- **Services** encapsulate business logic (SRP principle)
+- **Middlewares** are injectable and replaceable
+- **DI (Dependency Injection)** done via imports and service layering
+- **Polymorphism** and extensibility built-in
 
 ---
 
@@ -78,107 +147,84 @@ Here's what happens when a user sends a request to `GET /romannumeral?query=44`:
 ### ✅ Prometheus
 
 - Endpoint: `GET /metrics`
-- Tracks:
+- Metrics exposed:
   - `http_requests_total`
   - `http_response_time_seconds`
 
 ### 📊 Grafana
 
-- Dashboards powered by Prometheus
-- You can import pre-made dashboards from GrafanaLabs
+- Dashboards sourced from Prometheus
+- You can import dashboards from GrafanaLabs (e.g. Dashboard ID `1860`)
 
 ### 🧠 Sentry
 
 - Captures:
-  - Unhandled exceptions
-  - Stack traces with source maps
-- Configured in `src/configs/sentry.ts`
+  - Uncaught errors
+  - Stack traces with sourcemaps
+- Connected via `sentry.ts` and `instrument.ts`
+
+---
+
+## 🔐 .env & Secrets
+
+### `.env.example`
+
+```env
+PORT=8080
+SENTRY_AUTH_TOKEN=your_sentry_auth_token
+SENTRY_DSN=your_sentry_dsn
+RAILWAY_SERVICE_ID=your_railway_service_id
+RAILWAY_API_TOKEN=your_railway_api_token
+```
+
+---
+
+## 📄 Swagger Documentation
+
+**Railway URL**: `https://aem-production-xxxx.up.railway.app/api-docs`  
+**Example API call**:  
+`https://aem-production-xxxx.up.railway.app/romannumeral?query=44`  
+**Returns**:
+
+```json
+{ "input": "44", "output": "XLIV" }
+```
 
 ---
 
 ## 🚀 Deployment
 
-Deployed using **Docker** + **Railway**.
-
-### 🔧 Dockerized Production
+### 🐳 Docker
 
 ```bash
-# Build and run locally
-docker compose -f docker-compose.prod.yml up --build
+docker compose -f docker-compose.yml up --build
 ```
 
-### 🌐 Railway Deployment
-
-CI/CD is triggered on every `push` to `main`.
+### 🌐 Railway
 
 ```bash
-# First-time login
 npm install -g @railway/cli
 railway login
 railway link
 railway up
 ```
 
-Prometheus and Grafana should be deployed as **independent Railway services**.
+Prometheus and Grafana should be deployed as **separate Railway services**.
 
 ---
 
 ## 🧪 Testing
 
-- Tests written with **Jest** and **Supertest**
-- Coverage: 85%+
-- Run all tests:
-
 ```bash
 npm test
 ```
 
----
-
-## 🧰 Developer Scripts
-
-| Script                      | Description                             |
-| --------------------------- | --------------------------------------- |
-| `npm run dev`               | Start in watch mode (ts-node-dev)       |
-| `npm run build`             | Compile TypeScript & prepare production |
-| `npm test`                  | Run unit tests with coverage            |
-| `npm run generate-docs`     | Generate TypeDoc API documentation      |
-| `npm run sentry:sourcemaps` | Upload source maps to Sentry            |
+> Coverage: 85%+
 
 ---
 
-## 📚 Documentation
-
-Swagger auto-documentation available at:
-
-```
-GET /docs
-```
-
-Includes:
-
-- `/romannumeral`
-- `/health`
-- Error response examples
-
----
-
-## 💡 Designed With
-
-- 🧰 TypeScript, Express.js
-- 🎯 Clean Architecture
-- 🧪 Full test coverage
-- 📈 Prometheus + Grafana
-- 🔥 Sentry for error logging
-- 🚀 GitHub CI/CD → Railway
-- 📄 Swagger API Docs
-- 🏛️ Production-ready Docker setup
-
----
-
-## 🧑‍💻 Author
+## 👨‍💻 Author
 
 **Mehdi Amiri**  
-→ GitHub: [@mehdiamiri1440](https://github.com/mehdiamiri1440)
-
-For the Adobe AEM SWE Interview Assignment
+→ GitHub: [@mehdiamiri1440](https://github.com/mehdiamiri1440)  
+For the Adobe AEM SWE Assignment

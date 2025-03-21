@@ -8,7 +8,7 @@ import {
   detectSuspiciousActivity,
   rateLimiter,
 } from "@middlewares/RequestHandler";
-import romanNumeralRoutes from "@routes/RomanNumeralRoutes";
+import RomanNumeralRoutes from "@routes/RomanNumeralRoutes";
 import { setupSwagger } from "@configs/swagger";
 import debugRoutes from "@routes/debugRoutes";
 
@@ -46,7 +46,7 @@ app.get("/", (req, res) => {
 });
 
 // API Route
-app.use("/romannumeral", romanNumeralRoutes);
+app.use("/romannumeral", RomanNumeralRoutes);
 
 // Health Check Route
 app.get("/health", (req, res) => {
