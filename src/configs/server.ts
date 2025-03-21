@@ -1,4 +1,3 @@
-// src/config/server.ts
 import express from "express";
 import cors from "cors";
 import promClient from "prom-client";

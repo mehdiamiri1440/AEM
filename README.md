@@ -33,6 +33,11 @@ Returns:
 
 ---
 
+## 📄 Documentation (GitHub Pages)
+
+You can browse the full API TypeDoc documentation here:  
+🔗 [https://mehdiamiri1440.github.io/AEM/](https://mehdiamiri1440.github.io/AEM/)
+
 ## 🔁 Data Flow (End-to-End)
 
 1. **🌐 Incoming Request**
