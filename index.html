@@ -19,7 +19,7 @@ Returns:</p>
 <p><strong>🔀 Routing Logic</strong></p>
 <ul>
 <li>Routed to <code>src/routes/RomanNumeralRoutes.ts</code></li>
-<li>Passes to <code>RomanNumeralController.convertToRoman</code></li>
+<li>Passes to <code>RomanNumeralController.convert</code></li>
 </ul>
 </li>
 <li>
@@ -38,7 +38,7 @@ Returns:</p>
 <li>
 <p><strong>🧠 Business Logic</strong></p>
 <ul>
-<li>Valid input reaches <code>RomanNumeralService.convertToRoman</code></li>
+<li>Valid input reaches <code>RomanNumeralService.toRoman</code></li>
 <li>Handles conversion using clean algorithmic logic</li>
 </ul>
 </li>
@@ -106,7 +106,7 @@ Returns:</p>
 </ul>
 <hr>
 <h2 id="🚀-deployment" class="tsd-anchor-link">🚀 Deployment<a href="#🚀-deployment" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Deployed using <strong>Docker</strong> + <strong>Railway</strong>.</p>
-<h3 id="🔧-dockerized-production" class="tsd-anchor-link">🔧 Dockerized Production<a href="#🔧-dockerized-production" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><pre><code class="bash"><span class="hl-3"># Build and run locally</span><br/><span class="hl-4">docker</span><span class="hl-0"> </span><span class="hl-2">compose</span><span class="hl-0"> </span><span class="hl-5">-f</span><span class="hl-0"> </span><span class="hl-2">docker-compose.prod.yml</span><span class="hl-0"> </span><span class="hl-2">up</span><span class="hl-0"> </span><span class="hl-5">--build</span>
+<h3 id="🔧-dockerized-production" class="tsd-anchor-link">🔧 Dockerized Production<a href="#🔧-dockerized-production" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><pre><code class="bash"><span class="hl-3"># Build and run locally</span><br/><span class="hl-4">docker</span><span class="hl-0"> </span><span class="hl-2">compose</span><span class="hl-0"> </span><span class="hl-5">-f</span><span class="hl-0"> </span><span class="hl-2">docker-compose.yml</span><span class="hl-0"> </span><span class="hl-2">up</span><span class="hl-0"> </span><span class="hl-5">--build</span>
 </code><button type="button">Copy</button></pre>
 
 <h3 id="🌐-railway-deployment" class="tsd-anchor-link">🌐 Railway Deployment<a href="#🌐-railway-deployment" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><p>CI/CD is triggered on every <code>push</code> to <code>main</code>.</p>
