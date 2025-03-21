@@ -1,29 +1,28 @@
-# Build Step
+# Build step
 FROM node:18-alpine AS build
 WORKDIR /app
 
-# Copy package.json and install dependencies
+# Install dependencies
 COPY package*.json ./
 RUN npm install
 
-# Copy source code and build
+# Copy source code & build
 COPY . .
 RUN npm run build
 
-# Copy Swagger files separately
+# Explicitly copy Swagger files
 RUN mkdir -p dist/swagger && cp -r src/swagger/* dist/swagger/
 
-# Production Step
+# Production step
 FROM node:18-alpine
 WORKDIR /app
 
-# Copy built app and dependencies
+# Copy built project
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package.json ./package.json
-
-# Copy Swagger files
 COPY --from=build /app/dist/swagger ./dist/swagger
 
+# Expose API port
 EXPOSE 8080
 CMD ["node", "dist/index.js"]

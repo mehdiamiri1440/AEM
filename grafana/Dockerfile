@@ -1,3 +1,8 @@
 FROM grafana/grafana:latest
+
+# Copy Grafana configs
 COPY grafana.ini /etc/grafana/grafana.ini
-COPY dashboards/ /var/lib/grafana/dashboards/
+COPY provisioning /etc/grafana/provisioning
+
+# Expose Grafana port
+EXPOSE 3000

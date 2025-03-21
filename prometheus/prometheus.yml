@@ -2,10 +2,10 @@ global:
   scrape_interval: 15s
 
 scrape_configs:
-  - job_name: "node_api"
+  - job_name: "aem_api"
     static_configs:
-      - targets: ["app:8080"]
+      - targets: ["aem-production.up.railway.app:8080"]
 
   - job_name: "prometheus"
     static_configs:
-      - targets: ["prometheus:9090"]
+      - targets: ["localhost:9090"]
