@@ -3,7 +3,10 @@
 An end-to-end production-grade Express.js application built for the Adobe AEM team SWE assignment. This API converts integers (1–3999) to Roman numerals while implementing industry-standard practices including observability (Prometheus, Grafana, Sentry), CI/CD, health monitoring, and full test coverage.
 
 ---
-
+## The full functional app is available at the following urls:
+    https://aem-production.up.railway.app/
+    https://aem-production.up.railway.app/api-docs
+    
 ## ⚙️ Core Functionality
 
 ### ➤ API Endpoint
