@@ -152,7 +152,7 @@ npm test
 Swagger auto-documentation available at:
 
 ```
-GET /docs
+GET /api-docs
 ```
 
 Includes:
