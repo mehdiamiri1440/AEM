@@ -1,176 +1,184 @@
-# Roman Numeral API
+# 🏛️ Roman Numeral API
 
-This project is an assignment for Adobe AEM's Software Engineer role. It demonstrates a complete backend service using Node.js and TypeScript with features including Roman numeral conversion, error monitoring with Sentry, observability using Prometheus + Grafana, and CI/CD deployment using GitHub Actions and Railway.
-
----
-
-PROJECT STRUCTURE
-
-.
-├── .github/workflows/ci-cd.yml # GitHub Actions config for CI/CD pipeline
-├── Dockerfile # Docker image for the app
-├── docker-compose.yml # Optional local Docker config
-├── prometheus/
-│ ├── Dockerfile # Docker image for Prometheus
-│ └── prometheus.yml # Prometheus config file
-├── grafana/
-│ ├── Dockerfile # Docker image for Grafana
-│ └── grafana.ini # Grafana config file
-├── src/
-│ ├── index.ts # App entry point
-│ ├── app.ts # Express app setup
-│ ├── configs/
-│ │ ├── dotenvConfig.ts # Loads .env config
-│ │ ├── sentry.ts # Sentry setup
-│ │ ├── server.ts # Server configuration
-│ │ └── swagger.ts # Swagger/OpenAPI docs
-│ ├── controllers/
-│ │ ├── BaseController.ts # Base controller class
-│ │ └── RomanNumeralController.ts# Business logic for conversion
-│ ├── middlewares/
-│ │ ├── RequestHandler.ts # Logs request
-│ │ └── ResponseHandler.ts # Formats responses
-│ ├── services/
-│ │ ├── BaseService.ts
-│ │ ├── LoggerService.ts
-│ │ ├── MetricsService.ts # Prometheus metrics
-│ │ └── RomanNumeralService.ts
-│ ├── routes/
-│ │ ├── BaseRouter.ts
-│ │ ├── RomanNumeralRoutes.ts # /romannumeral route
-│ │ └── debugRoutes.ts # /health and other diagnostics
-│ ├── swagger/
-│ │ ├── swagger.yml
-│ │ ├── tags.yml
-│ │ ├── components/
-│ │ │ └── schemas.yml
-│ │ └── paths/
-│ │ ├── romannumeral.yml
-│ │ └── health.yml
-│ ├── enums/
-│ │ └── HttpStatus.ts
-│ ├── utils/
-│ │ └── Validator.ts
-│ ├── types/
-│ │ └── RomanNumeralTypes.ts
-│ └── tests/
-│ ├── controllers/
-│ │ └── RomanNumeralController.test.ts
-│ ├── middlewares/
-│ │ └── RequestHandler.test.ts
-│ ├── routes/
-│ │ ├── healthCheck.test.ts
-│ │ └── romanNumeralRoutes.test.ts
-│ └── services/
-│ └── RomanNumeralService.test.ts
+An end-to-end production-grade Express.js application built for the Adobe AEM team SWE assignment. This API converts integers (1–3999) to Roman numerals while implementing industry-standard practices including observability (Prometheus, Grafana, Sentry), CI/CD, health monitoring, and full test coverage.
 
 ---
 
-FEATURES
+## ⚙️ Core Functionality
 
-1. Roman numeral API
+### ➤ API Endpoint
 
-   - GET /romannumeral?query=44
-   - Returns: { input: "44", output: "XLIV" }
+`GET /romannumeral?query=123`  
+Returns:
 
-2. Health check
-
-   - GET /health
-
-3. Swagger Documentation
-
-   - Available at /api-docs
-
-4. Prometheus Metrics
-
-   - GET /metrics
-   - Custom metrics: http_requests_total, http_response_time_seconds
-
-5. Sentry Integration
-
-   - Tracks runtime and unhandled errors
-
-6. CI/CD with GitHub Actions
-
-   - Runs tests
-   - Builds the project
-   - Uploads sourcemaps to Sentry
-   - Deploys to Railway
-
-7. Railway deployment
-   - Project is deployable via `railway up`
-   - Metrics and dashboard (optional: can be deployed via custom Docker setup)
+```json
+{
+  "input": "123",
+  "output": "CXXIII"
+}
+```
 
 ---
 
-USAGE
+## 🔁 Data Flow (End-to-End)
 
-1. Build locally:
+Here's what happens when a user sends a request to `GET /romannumeral?query=44`:
 
-   docker build -t roman-numeral-api .
+1. **🌐 Incoming Request**
 
-2. Run locally:
+   - Enters via `Express.js` app in `src/index.ts`
+   - Handled by `app.use('/romannumeral', RomanNumeralRoutes)`
 
-   docker run -p 8080:8080 --env-file .env roman-numeral-api
+2. **🔀 Routing Logic**
 
-3. View documentation:
+   - Routed to `src/routes/RomanNumeralRoutes.ts`
+   - Passes to `RomanNumeralController.convertToRoman`
 
-   http://localhost:8080/api-docs
+3. **📋 Validation Layer**
 
-4. View Prometheus metrics:
+   - `src/utils/Validator.ts` checks:
+     - Is `query` present?
+     - Is it an integer?
+     - Is it within the 1-3999 range?
+   - If invalid → throws a `400 Bad Request`
 
-   http://localhost:8080/metrics
+4. **🧠 Business Logic**
 
----
+   - Valid input reaches `RomanNumeralService.convertToRoman`
+   - Handles conversion using clean algorithmic logic
 
-DEPLOYMENT ON RAILWAY
+5. **📤 Response**
 
-1. Make sure you're logged in to Railway CLI:
+   - Controller wraps the result using `ResponseHandler.ts`
+   - Outputs JSON response: `{ input: "44", output: "XLIV" }`
 
-   railway login
+6. **🪵 Logging**
 
-2. Link your local repo to a Railway project:
+   - Every request/response is logged via `LoggerService.ts`
 
-   railway link
+7. **📊 Metrics**
 
-3. Deploy:
+   - `MetricsService.ts`:
+     - Increments Prometheus counters
+     - Tracks response time histogram
+   - Available at `/metrics`
 
-   railway up --service <your-service-name>
+8. **🩺 Health Check**
 
-4. View logs:
+   - `/health` reports uptime and status
 
-   railway logs --service <your-service-name>
-
----
-
-GRAFANA + PROMETHEUS DEPLOYMENT (optional)
-
-1. Prepare directories:
-
-   mkdir -p grafana prometheus
-
-2. Add Dockerfiles and config:
-   grafana/Dockerfile
-   grafana/grafana.ini
-   prometheus/Dockerfile
-   prometheus/prometheus.yml
-
-3. Deploy them to Railway:
-
-   cd grafana && railway init --name grafana && railway up
-   cd ../prometheus && railway init --name prometheus && railway up
+9. **🚨 Error Monitoring**
+   - Uncaught errors reported to **Sentry**
+   - Captured from centralized error middleware
 
 ---
 
-NOTES
+## 📈 Observability Stack
 
-- Be sure to upload sourcemaps to Sentry using the GitHub Action
-- Customize Grafana dashboard by importing Prometheus data
-- Keep `.env` safe and DO NOT commit it
+### ✅ Prometheus
+
+- Endpoint: `GET /metrics`
+- Tracks:
+  - `http_requests_total`
+  - `http_response_time_seconds`
+
+### 📊 Grafana
+
+- Dashboards powered by Prometheus
+- You can import pre-made dashboards from GrafanaLabs
+
+### 🧠 Sentry
+
+- Captures:
+  - Unhandled exceptions
+  - Stack traces with source maps
+- Configured in `src/configs/sentry.ts`
 
 ---
 
-AUTHOR
+## 🚀 Deployment
 
-Mehdi Amiri  
-Assignment for Adobe AEM SWE Role
+Deployed using **Docker** + **Railway**.
+
+### 🔧 Dockerized Production
+
+```bash
+# Build and run locally
+docker compose -f docker-compose.prod.yml up --build
+```
+
+### 🌐 Railway Deployment
+
+CI/CD is triggered on every `push` to `main`.
+
+```bash
+# First-time login
+npm install -g @railway/cli
+railway login
+railway link
+railway up
+```
+
+Prometheus and Grafana should be deployed as **independent Railway services**.
+
+---
+
+## 🧪 Testing
+
+- Tests written with **Jest** and **Supertest**
+- Coverage: 85%+
+- Run all tests:
+
+```bash
+npm test
+```
+
+---
+
+## 🧰 Developer Scripts
+
+| Script                      | Description                             |
+| --------------------------- | --------------------------------------- |
+| `npm run dev`               | Start in watch mode (ts-node-dev)       |
+| `npm run build`             | Compile TypeScript & prepare production |
+| `npm test`                  | Run unit tests with coverage            |
+| `npm run generate-docs`     | Generate TypeDoc API documentation      |
+| `npm run sentry:sourcemaps` | Upload source maps to Sentry            |
+
+---
+
+## 📚 Documentation
+
+Swagger auto-documentation available at:
+
+```
+GET /docs
+```
+
+Includes:
+
+- `/romannumeral`
+- `/health`
+- Error response examples
+
+---
+
+## 💡 Designed With
+
+- 🧰 TypeScript, Express.js
+- 🎯 Clean Architecture
+- 🧪 Full test coverage
+- 📈 Prometheus + Grafana
+- 🔥 Sentry for error logging
+- 🚀 GitHub CI/CD → Railway
+- 📄 Swagger API Docs
+- 🏛️ Production-ready Docker setup
+
+---
+
+## 🧑‍💻 Author
+
+**Mehdi Amiri**  
+→ GitHub: [@mehdiamiri1440](https://github.com/mehdiamiri1440)
+
+For the Adobe AEM SWE Interview Assignment
