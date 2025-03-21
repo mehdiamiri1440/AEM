@@ -80,11 +80,67 @@ Returns:</p>
 <li>Captured from centralized error middleware</li>
 </ul>
 </li>
+<li>
+<p><strong>📦 Instrumentation</strong></p>
+<ul>
+<li><code>instrument.ts</code> injects monitoring (Sentry, Prometheus, Logger) globally</li>
+</ul>
+</li>
 </ol>
+<hr>
+<h2 id="📦-important-folders--files" class="tsd-anchor-link">📦 Important Folders &amp; Files<a href="#📦-important-folders--files" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><h3 id="srcconfigs" class="tsd-anchor-link"><code>src/configs</code><a href="#srcconfigs" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li><code>dotenvConfig.ts</code> – Loads <code>.env</code> variables</li>
+<li><code>server.ts</code> – Creates and configures Express app</li>
+<li><code>sentry.ts</code> – Initializes and connects Sentry</li>
+<li><code>swagger.ts</code> – Sets up Swagger middleware</li>
+</ul>
+<h3 id="srccontrollers" class="tsd-anchor-link"><code>src/controllers</code><a href="#srccontrollers" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li><code>BaseController.ts</code> – Shared behavior for all controllers</li>
+<li><code>RomanNumeralController.ts</code> – Handles <code>/romannumeral</code> route logic</li>
+</ul>
+<h3 id="srcenums" class="tsd-anchor-link"><code>src/enums</code><a href="#srcenums" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li><code>HttpStatus.ts</code> – Named constants for HTTP response codes</li>
+</ul>
+<h3 id="srcmiddlewares" class="tsd-anchor-link"><code>src/middlewares</code><a href="#srcmiddlewares" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li><code>RequestHandler.ts</code> – Logs requests</li>
+<li><code>ResponseHandler.ts</code> – Wraps responses uniformly</li>
+</ul>
+<h3 id="srcroutes" class="tsd-anchor-link"><code>src/routes</code><a href="#srcroutes" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li><code>BaseRouter.ts</code> – Shared logic across all routers</li>
+<li><code>RomanNumeralRoutes.ts</code> – Main endpoint routes</li>
+<li><code>debugRoutes.ts</code> – Development-only routes</li>
+</ul>
+<h3 id="srcservices" class="tsd-anchor-link"><code>src/services</code><a href="#srcservices" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li><code>BaseService.ts</code> – Optional parent service</li>
+<li><code>LoggerService.ts</code> – Uses Winston to log to console/files</li>
+<li><code>MetricsService.ts</code> – Exposes Prometheus metrics</li>
+<li><code>RomanNumeralService.ts</code> – Core conversion logic</li>
+</ul>
+<h3 id="srctests" class="tsd-anchor-link"><code>src/tests</code><a href="#srctests" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li>Uses <code>Jest</code> and <code>Supertest</code> to verify routes, services, and controllers</li>
+</ul>
+<h3 id="srctypes" class="tsd-anchor-link"><code>src/types</code><a href="#srctypes" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li><code>RomanNumeralTypes.ts</code> – Custom types/interfaces</li>
+</ul>
+<h3 id="srcutils" class="tsd-anchor-link"><code>src/utils</code><a href="#srcutils" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li><code>Validator.ts</code> – Validation helpers</li>
+</ul>
+<h3 id="srcswagger" class="tsd-anchor-link"><code>src/swagger</code><a href="#srcswagger" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li><code>swagger.yml</code>, <code>tags.yml</code>, <code>components/</code>, <code>paths/</code> – OpenAPI 3.0 schema</li>
+</ul>
+<hr>
+<h2 id="🧠-oop-design" class="tsd-anchor-link">🧠 OOP Design<a href="#🧠-oop-design" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><ul>
+<li><strong>Controllers</strong> extend <code>BaseController</code></li>
+<li><strong>Routers</strong> inherit shared logic from <code>BaseRouter</code></li>
+<li><strong>Services</strong> encapsulate business logic (SRP principle)</li>
+<li><strong>Middlewares</strong> are injectable and replaceable</li>
+<li><strong>DI (Dependency Injection)</strong> done via imports and service layering</li>
+<li><strong>Polymorphism</strong> and extensibility built-in</li>
+</ul>
 <hr>
 <h2 id="📈-observability-stack" class="tsd-anchor-link">📈 Observability Stack<a href="#📈-observability-stack" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><h3 id="✅-prometheus" class="tsd-anchor-link">✅ Prometheus<a href="#✅-prometheus" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
 <li>Endpoint: <code>GET /metrics</code></li>
-<li>Tracks:
+<li>Metrics exposed:
 <ul>
 <li><code>http_requests_total</code></li>
 <li><code>http_response_time_seconds</code></li>
@@ -92,92 +148,51 @@ Returns:</p>
 </li>
 </ul>
 <h3 id="📊-grafana" class="tsd-anchor-link">📊 Grafana<a href="#📊-grafana" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
-<li>Dashboards powered by Prometheus</li>
-<li>You can import pre-made dashboards from GrafanaLabs</li>
+<li>Dashboards sourced from Prometheus</li>
+<li>You can import dashboards from GrafanaLabs (e.g. Dashboard ID <code>1860</code>)</li>
 </ul>
 <h3 id="🧠-sentry" class="tsd-anchor-link">🧠 Sentry<a href="#🧠-sentry" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
 <li>Captures:
 <ul>
-<li>Unhandled exceptions</li>
-<li>Stack traces with source maps</li>
+<li>Uncaught errors</li>
+<li>Stack traces with sourcemaps</li>
 </ul>
 </li>
-<li>Configured in <code>src/configs/sentry.ts</code></li>
+<li>Connected via <code>sentry.ts</code> and <code>instrument.ts</code></li>
 </ul>
 <hr>
-<h2 id="🚀-deployment" class="tsd-anchor-link">🚀 Deployment<a href="#🚀-deployment" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Deployed using <strong>Docker</strong> + <strong>Railway</strong>.</p>
-<h3 id="🔧-dockerized-production" class="tsd-anchor-link">🔧 Dockerized Production<a href="#🔧-dockerized-production" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><pre><code class="bash"><span class="hl-3"># Build and run locally</span><br/><span class="hl-4">docker</span><span class="hl-0"> </span><span class="hl-2">compose</span><span class="hl-0"> </span><span class="hl-5">-f</span><span class="hl-0"> </span><span class="hl-2">docker-compose.yml</span><span class="hl-0"> </span><span class="hl-2">up</span><span class="hl-0"> </span><span class="hl-5">--build</span>
-</code><button type="button">Copy</button></pre>
-
-<h3 id="🌐-railway-deployment" class="tsd-anchor-link">🌐 Railway Deployment<a href="#🌐-railway-deployment" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><p>CI/CD is triggered on every <code>push</code> to <code>main</code>.</p>
-<pre><code class="bash"><span class="hl-3"># First-time login</span><br/><span class="hl-4">npm</span><span class="hl-0"> </span><span class="hl-2">install</span><span class="hl-0"> </span><span class="hl-5">-g</span><span class="hl-0"> </span><span class="hl-2">@railway/cli</span><br/><span class="hl-4">railway</span><span class="hl-0"> </span><span class="hl-2">login</span><br/><span class="hl-4">railway</span><span class="hl-0"> </span><span class="hl-2">link</span><br/><span class="hl-4">railway</span><span class="hl-0"> </span><span class="hl-2">up</span>
-</code><button type="button">Copy</button></pre>
-
-<p>Prometheus and Grafana should be deployed as <strong>independent Railway services</strong>.</p>
-<hr>
-<h2 id="🧪-testing" class="tsd-anchor-link">🧪 Testing<a href="#🧪-testing" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><ul>
-<li>Tests written with <strong>Jest</strong> and <strong>Supertest</strong></li>
-<li>Coverage: 85%+</li>
-<li>Run all tests:</li>
-</ul>
-<pre><code class="bash"><span class="hl-4">npm</span><span class="hl-0"> </span><span class="hl-2">test</span>
+<h2 id="🔐-env--secrets" class="tsd-anchor-link">🔐 .env &amp; Secrets<a href="#🔐-env--secrets" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><h3 id="envexample" class="tsd-anchor-link"><code>.env.example</code><a href="#envexample" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><pre><code class="env">PORT=8080
+SENTRY_AUTH_TOKEN=your_sentry_auth_token
+SENTRY_DSN=your_sentry_dsn
+RAILWAY_SERVICE_ID=your_railway_service_id
+RAILWAY_API_TOKEN=your_railway_api_token
 </code><button type="button">Copy</button></pre>
 
 <hr>
-<h2 id="🧰-developer-scripts" class="tsd-anchor-link">🧰 Developer Scripts<a href="#🧰-developer-scripts" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><table>
-<thead>
-<tr>
-<th>Script</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>npm run dev</code></td>
-<td>Start in watch mode (ts-node-dev)</td>
-</tr>
-<tr>
-<td><code>npm run build</code></td>
-<td>Compile TypeScript &amp; prepare production</td>
-</tr>
-<tr>
-<td><code>npm test</code></td>
-<td>Run unit tests with coverage</td>
-</tr>
-<tr>
-<td><code>npm run generate-docs</code></td>
-<td>Generate TypeDoc API documentation</td>
-</tr>
-<tr>
-<td><code>npm run sentry:sourcemaps</code></td>
-<td>Upload source maps to Sentry</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h2 id="📚-documentation" class="tsd-anchor-link">📚 Documentation<a href="#📚-documentation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Swagger auto-documentation available at:</p>
-<pre><code><span class="hl-6">GET</span><span class="hl-0"> /</span><span class="hl-7">api</span><span class="hl-0">-</span><span class="hl-7">docs</span>
-</code><button>Copy</button></pre>
+<h2 id="📄-swagger-documentation" class="tsd-anchor-link">📄 Swagger Documentation<a href="#📄-swagger-documentation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p><strong>Railway URL</strong>: <code>https://aem-production-xxxx.up.railway.app/api-docs</code><br>
+<strong>Example API call</strong>:<br>
+<code>https://aem-production-xxxx.up.railway.app/romannumeral?query=44</code><br>
+<strong>Returns</strong>:</p>
+<pre><code class="json"><span class="hl-0">{ </span><span class="hl-1">&quot;input&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;44&quot;</span><span class="hl-0">, </span><span class="hl-1">&quot;output&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;XLIV&quot;</span><span class="hl-0"> }</span>
+</code><button type="button">Copy</button></pre>
 
-<p>Includes:</p>
-<ul>
-<li><code>/romannumeral</code></li>
-<li><code>/health</code></li>
-<li>Error response examples</li>
-</ul>
 <hr>
-<h2 id="💡-designed-with" class="tsd-anchor-link">💡 Designed With<a href="#💡-designed-with" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><ul>
-<li>🧰 TypeScript, Express.js</li>
-<li>🎯 Clean Architecture</li>
-<li>🧪 Full test coverage</li>
-<li>📈 Prometheus + Grafana</li>
-<li>🔥 Sentry for error logging</li>
-<li>🚀 GitHub CI/CD → Railway</li>
-<li>📄 Swagger API Docs</li>
-<li>🏛️ Production-ready Docker setup</li>
-</ul>
+<h2 id="🚀-deployment" class="tsd-anchor-link">🚀 Deployment<a href="#🚀-deployment" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><h3 id="🐳-docker" class="tsd-anchor-link">🐳 Docker<a href="#🐳-docker" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><pre><code class="bash"><span class="hl-3">docker</span><span class="hl-0"> </span><span class="hl-2">compose</span><span class="hl-0"> </span><span class="hl-4">-f</span><span class="hl-0"> </span><span class="hl-2">docker-compose.yml</span><span class="hl-0"> </span><span class="hl-2">up</span><span class="hl-0"> </span><span class="hl-4">--build</span>
+</code><button type="button">Copy</button></pre>
+
+<h3 id="🌐-railway" class="tsd-anchor-link">🌐 Railway<a href="#🌐-railway" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><pre><code class="bash"><span class="hl-3">npm</span><span class="hl-0"> </span><span class="hl-2">install</span><span class="hl-0"> </span><span class="hl-4">-g</span><span class="hl-0"> </span><span class="hl-2">@railway/cli</span><br/><span class="hl-3">railway</span><span class="hl-0"> </span><span class="hl-2">login</span><br/><span class="hl-3">railway</span><span class="hl-0"> </span><span class="hl-2">link</span><br/><span class="hl-3">railway</span><span class="hl-0"> </span><span class="hl-2">up</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Prometheus and Grafana should be deployed as <strong>separate Railway services</strong>.</p>
 <hr>
-<h2 id="🧑💻-author" class="tsd-anchor-link">🧑‍💻 Author<a href="#🧑💻-author" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p><strong>Mehdi Amiri</strong><br>
-→ GitHub: <a href="https://github.com/mehdiamiri1440">@mehdiamiri1440</a></p>
-<p>For the Adobe AEM SWE Interview Assignment</p>
-</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#🏛️-roman-numeral-api"><span>🏛️ <wbr/>Roman <wbr/>Numeral API</span></a><ul><li><a href="#⚙️-core-functionality"><span>⚙️ <wbr/>Core <wbr/>Functionality</span></a></li><li><ul><li><a href="#➤-api-endpoint"><span>➤ API <wbr/>Endpoint</span></a></li></ul></li><li><a href="#🔁-data-flow-end-to-end"><span>🔁 <wbr/>Data <wbr/>Flow (<wbr/>End-<wbr/>to-<wbr/>End)</span></a></li><li><a href="#📈-observability-stack"><span>📈 <wbr/>Observability <wbr/>Stack</span></a></li><li><ul><li><a href="#✅-prometheus"><span>✅ <wbr/>Prometheus</span></a></li><li><a href="#📊-grafana"><span>📊 <wbr/>Grafana</span></a></li><li><a href="#🧠-sentry"><span>🧠 <wbr/>Sentry</span></a></li></ul></li><li><a href="#🚀-deployment"><span>🚀 <wbr/>Deployment</span></a></li><li><ul><li><a href="#🔧-dockerized-production"><span>🔧 <wbr/>Dockerized <wbr/>Production</span></a></li><li><a href="#🌐-railway-deployment"><span>🌐 <wbr/>Railway <wbr/>Deployment</span></a></li></ul></li><li><a href="#🧪-testing"><span>🧪 <wbr/>Testing</span></a></li><li><a href="#🧰-developer-scripts"><span>🧰 <wbr/>Developer <wbr/>Scripts</span></a></li><li><a href="#📚-documentation"><span>📚 <wbr/>Documentation</span></a></li><li><a href="#💡-designed-with"><span>💡 <wbr/>Designed <wbr/>With</span></a></li><li><a href="#🧑💻-author"><span>🧑‍💻 <wbr/>Author</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">roman-numeral-api</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>
+<h2 id="🧪-testing" class="tsd-anchor-link">🧪 Testing<a href="#🧪-testing" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><pre><code class="bash"><span class="hl-3">npm</span><span class="hl-0"> </span><span class="hl-2">test</span>
+</code><button type="button">Copy</button></pre>
+
+<blockquote>
+<p>Coverage: 85%+</p>
+</blockquote>
+<hr>
+<h2 id="👨💻-author" class="tsd-anchor-link">👨‍💻 Author<a href="#👨💻-author" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p><strong>Mehdi Amiri</strong><br>
+→ GitHub: <a href="https://github.com/mehdiamiri1440">@mehdiamiri1440</a><br>
+For the Adobe AEM SWE Assignment</p>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#🏛️-roman-numeral-api"><span>🏛️ <wbr/>Roman <wbr/>Numeral API</span></a><ul><li><a href="#⚙️-core-functionality"><span>⚙️ <wbr/>Core <wbr/>Functionality</span></a></li><li><ul><li><a href="#➤-api-endpoint"><span>➤ API <wbr/>Endpoint</span></a></li></ul></li><li><a href="#🔁-data-flow-end-to-end"><span>🔁 <wbr/>Data <wbr/>Flow (<wbr/>End-<wbr/>to-<wbr/>End)</span></a></li><li><a href="#📦-important-folders--files"><span>📦 <wbr/>Important <wbr/>Folders &amp; <wbr/>Files</span></a></li><li><ul><li><a href="#srcconfigs"><span>src/configs</span></a></li><li><a href="#srccontrollers"><span>src/controllers</span></a></li><li><a href="#srcenums"><span>src/enums</span></a></li><li><a href="#srcmiddlewares"><span>src/middlewares</span></a></li><li><a href="#srcroutes"><span>src/routes</span></a></li><li><a href="#srcservices"><span>src/services</span></a></li><li><a href="#srctests"><span>src/tests</span></a></li><li><a href="#srctypes"><span>src/types</span></a></li><li><a href="#srcutils"><span>src/utils</span></a></li><li><a href="#srcswagger"><span>src/swagger</span></a></li></ul></li><li><a href="#🧠-oop-design"><span>🧠 OOP <wbr/>Design</span></a></li><li><a href="#📈-observability-stack"><span>📈 <wbr/>Observability <wbr/>Stack</span></a></li><li><ul><li><a href="#✅-prometheus"><span>✅ <wbr/>Prometheus</span></a></li><li><a href="#📊-grafana"><span>📊 <wbr/>Grafana</span></a></li><li><a href="#🧠-sentry"><span>🧠 <wbr/>Sentry</span></a></li></ul></li><li><a href="#🔐-env--secrets"><span>🔐 .env &amp; <wbr/>Secrets</span></a></li><li><ul><li><a href="#envexample"><span>.env.example</span></a></li></ul></li><li><a href="#📄-swagger-documentation"><span>📄 <wbr/>Swagger <wbr/>Documentation</span></a></li><li><a href="#🚀-deployment"><span>🚀 <wbr/>Deployment</span></a></li><li><ul><li><a href="#🐳-docker"><span>🐳 <wbr/>Docker</span></a></li><li><a href="#🌐-railway"><span>🌐 <wbr/>Railway</span></a></li></ul></li><li><a href="#🧪-testing"><span>🧪 <wbr/>Testing</span></a></li><li><a href="#👨💻-author"><span>👨‍💻 <wbr/>Author</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">roman-numeral-api</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>
