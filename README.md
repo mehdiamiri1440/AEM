@@ -32,7 +32,7 @@ Here's what happens when a user sends a request to `GET /romannumeral?query=44`:
 2. **🔀 Routing Logic**
 
    - Routed to `src/routes/RomanNumeralRoutes.ts`
-   - Passes to `RomanNumeralController.convertToRoman`
+   - Passes to `RomanNumeralController.convert`
 
 3. **📋 Validation Layer**
 
@@ -44,7 +44,7 @@ Here's what happens when a user sends a request to `GET /romannumeral?query=44`:
 
 4. **🧠 Business Logic**
 
-   - Valid input reaches `RomanNumeralService.convertToRoman`
+   - Valid input reaches `RomanNumeralService.toRoman`
    - Handles conversion using clean algorithmic logic
 
 5. **📤 Response**
@@ -104,7 +104,7 @@ Deployed using **Docker** + **Railway**.
 
 ```bash
 # Build and run locally
-docker compose -f docker-compose.prod.yml up --build
+docker compose -f docker-compose.yml up --build
 ```
 
 ### 🌐 Railway Deployment
