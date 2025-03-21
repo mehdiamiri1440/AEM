@@ -1,11 +1,184 @@
-<!DOCTYPE html><html class="default" lang="en" data-base="./"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>roman-numeral-api</title><meta name="description" content="Documentation for roman-numeral-api"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="index.html" class="title">roman-numeral-api</a><div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>roman-numeral-api</h1></div><div class="tsd-panel tsd-typography"><h1 id="roman-numeral-api" class="tsd-anchor-link">Roman Numeral API<a href="#roman-numeral-api" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1><p>A simple API that converts numbers to Roman numerals.</p>
-<h2 id="features" class="tsd-anchor-link">Features<a href="#features" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><ul>
-<li>REST API</li>
-<li>Swagger documentation</li>
-<li>Comprehensive tests</li>
-<li>Error handling &amp; logging</li>
+<!DOCTYPE html><html class="default" lang="en" data-base="./"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>roman-numeral-api</title><meta name="description" content="Documentation for roman-numeral-api"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="index.html" class="title">roman-numeral-api</a><div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>roman-numeral-api</h1></div><div class="tsd-panel tsd-typography"><h1 id="roman-numeral-api" class="tsd-anchor-link">Roman Numeral API<a href="#roman-numeral-api" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1><p>This project is an assignment for Adobe AEM's Software Engineer role. It demonstrates a complete backend service using Node.js and TypeScript with features including Roman numeral conversion, error monitoring with Sentry, observability using Prometheus + Grafana, and CI/CD deployment using GitHub Actions and Railway.</p>
+<hr>
+<p>PROJECT STRUCTURE</p>
+<p>.
+├── .github/workflows/ci-cd.yml # GitHub Actions config for CI/CD pipeline
+├── Dockerfile # Docker image for the app
+├── docker-compose.yml # Optional local Docker config
+├── prometheus/
+│ ├── Dockerfile # Docker image for Prometheus
+│ └── prometheus.yml # Prometheus config file
+├── grafana/
+│ ├── Dockerfile # Docker image for Grafana
+│ └── grafana.ini # Grafana config file
+├── src/
+│ ├── index.ts # App entry point
+│ ├── app.ts # Express app setup
+│ ├── configs/
+│ │ ├── dotenvConfig.ts # Loads .env config
+│ │ ├── sentry.ts # Sentry setup
+│ │ ├── server.ts # Server configuration
+│ │ └── swagger.ts # Swagger/OpenAPI docs
+│ ├── controllers/
+│ │ ├── BaseController.ts # Base controller class
+│ │ └── RomanNumeralController.ts# Business logic for conversion
+│ ├── middlewares/
+│ │ ├── RequestHandler.ts # Logs request
+│ │ └── ResponseHandler.ts # Formats responses
+│ ├── services/
+│ │ ├── BaseService.ts
+│ │ ├── LoggerService.ts
+│ │ ├── MetricsService.ts # Prometheus metrics
+│ │ └── RomanNumeralService.ts
+│ ├── routes/
+│ │ ├── BaseRouter.ts
+│ │ ├── RomanNumeralRoutes.ts # /romannumeral route
+│ │ └── debugRoutes.ts # /health and other diagnostics
+│ ├── swagger/
+│ │ ├── swagger.yml
+│ │ ├── tags.yml
+│ │ ├── components/
+│ │ │ └── schemas.yml
+│ │ └── paths/
+│ │ ├── romannumeral.yml
+│ │ └── health.yml
+│ ├── enums/
+│ │ └── HttpStatus.ts
+│ ├── utils/
+│ │ └── Validator.ts
+│ ├── types/
+│ │ └── RomanNumeralTypes.ts
+│ └── tests/
+│ ├── controllers/
+│ │ └── RomanNumeralController.test.ts
+│ ├── middlewares/
+│ │ └── RequestHandler.test.ts
+│ ├── routes/
+│ │ ├── healthCheck.test.ts
+│ │ └── romanNumeralRoutes.test.ts
+│ └── services/
+│ └── RomanNumeralService.test.ts</p>
+<hr>
+<p>FEATURES</p>
+<ol>
+<li>
+<p>Roman numeral API</p>
+<ul>
+<li>GET /romannumeral?query=44</li>
+<li>Returns: { input: &quot;44&quot;, output: &quot;XLIV&quot; }</li>
 </ul>
-<h2 id="run-locally" class="tsd-anchor-link">Run Locally<a href="#run-locally" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><pre><code class="sh"><span class="hl-0">git</span><span class="hl-1"> </span><span class="hl-2">clone</span><span class="hl-1"> </span><span class="hl-2">https://github.com/mehdiamiri1440/AEM.git</span><br/><span class="hl-0">cd</span><span class="hl-1"> </span><span class="hl-2">AEM</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">dev</span>
-</code><button type="button">Copy</button></pre>
-
-</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#roman-numeral-api"><span>Roman <wbr/>Numeral API</span></a><ul><li><a href="#features"><span>Features</span></a></li><li><a href="#run-locally"><span>Run <wbr/>Locally</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">roman-numeral-api</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>
+</li>
+<li>
+<p>Health check</p>
+<ul>
+<li>GET /health</li>
+</ul>
+</li>
+<li>
+<p>Swagger Documentation</p>
+<ul>
+<li>Available at /api-docs</li>
+</ul>
+</li>
+<li>
+<p>Prometheus Metrics</p>
+<ul>
+<li>GET /metrics</li>
+<li>Custom metrics: http_requests_total, http_response_time_seconds</li>
+</ul>
+</li>
+<li>
+<p>Sentry Integration</p>
+<ul>
+<li>Tracks runtime and unhandled errors</li>
+</ul>
+</li>
+<li>
+<p>CI/CD with GitHub Actions</p>
+<ul>
+<li>Runs tests</li>
+<li>Builds the project</li>
+<li>Uploads sourcemaps to Sentry</li>
+<li>Deploys to Railway</li>
+</ul>
+</li>
+<li>
+<p>Railway deployment</p>
+<ul>
+<li>Project is deployable via <code>railway up</code></li>
+<li>Metrics and dashboard (optional: can be deployed via custom Docker setup)</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>USAGE</p>
+<ol>
+<li>
+<p>Build locally:</p>
+<p>docker build -t roman-numeral-api .</p>
+</li>
+<li>
+<p>Run locally:</p>
+<p>docker run -p 8080:8080 --env-file .env roman-numeral-api</p>
+</li>
+<li>
+<p>View documentation:</p>
+<p><a href="http://localhost:8080/api-docs">http://localhost:8080/api-docs</a></p>
+</li>
+<li>
+<p>View Prometheus metrics:</p>
+<p><a href="http://localhost:8080/metrics">http://localhost:8080/metrics</a></p>
+</li>
+</ol>
+<hr>
+<p>DEPLOYMENT ON RAILWAY</p>
+<ol>
+<li>
+<p>Make sure you're logged in to Railway CLI:</p>
+<p>railway login</p>
+</li>
+<li>
+<p>Link your local repo to a Railway project:</p>
+<p>railway link</p>
+</li>
+<li>
+<p>Deploy:</p>
+<p>railway up --service <your-service-name></p>
+</li>
+<li>
+<p>View logs:</p>
+<p>railway logs --service <your-service-name></p>
+</li>
+</ol>
+<hr>
+<p>GRAFANA + PROMETHEUS DEPLOYMENT (optional)</p>
+<ol>
+<li>
+<p>Prepare directories:</p>
+<p>mkdir -p grafana prometheus</p>
+</li>
+<li>
+<p>Add Dockerfiles and config:
+grafana/Dockerfile
+grafana/grafana.ini
+prometheus/Dockerfile
+prometheus/prometheus.yml</p>
+</li>
+<li>
+<p>Deploy them to Railway:</p>
+<p>cd grafana &amp;&amp; railway init --name grafana &amp;&amp; railway up
+cd ../prometheus &amp;&amp; railway init --name prometheus &amp;&amp; railway up</p>
+</li>
+</ol>
+<hr>
+<p>NOTES</p>
+<ul>
+<li>Be sure to upload sourcemaps to Sentry using the GitHub Action</li>
+<li>Customize Grafana dashboard by importing Prometheus data</li>
+<li>Keep <code>.env</code> safe and DO NOT commit it</li>
+</ul>
+<hr>
+<p>AUTHOR</p>
+<p>Mehdi Amiri<br>
+Assignment for Adobe AEM SWE Role</p>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#roman-numeral-api"><span>Roman <wbr/>Numeral API</span></a></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">roman-numeral-api</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>
