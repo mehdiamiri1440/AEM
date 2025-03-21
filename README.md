@@ -13,10 +13,7 @@
 - **🩺 Health Check:** [`/health`](https://aem-production.up.railway.app/health)
 
 ---
-## The full functional app is available at the following urls:
-    https://aem-production.up.railway.app/api-docs
-    https://aem-production.up.railway.app
-    
+
 ## ⚙️ Core Functionality
 
 ### ➤ API Endpoint
@@ -203,6 +200,26 @@ Includes:
 | `npm test`                  | Run tests                    |
 | `npm run generate-docs`     | Generate TypeDoc API docs    |
 | `npm run sentry:sourcemaps` | Upload source maps to Sentry |
+
+---
+
+---
+
+## 📘 GitHub Pages API Documentation
+
+Full developer documentation is also available via **TypeDoc** and hosted on GitHub Pages:
+
+🔗 [View API Docs](https://mehdiamiri1440.github.io/AEM/)
+
+This documentation includes:
+
+- Type-safe definitions of all services, controllers, and utilities
+- Auto-generated from your `src/` directory
+- Regenerated using:
+
+```bash
+npm run generate-docs
+```
 
 ---
 

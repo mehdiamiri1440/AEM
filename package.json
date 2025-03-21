@@ -13,7 +13,7 @@
     "generate-docs": "npx typedoc --out docs src/",
     "deploy-docs": "npm run generate-docs && git add docs && git commit -m '📚 Update docs' && git push origin gh-pages",
     "build": "cross-env SENTRY_RELEASE=roman-numeral-api@$(git rev-parse --short HEAD) tsc && tsc-alias && copyfiles -u 1 src/swagger/** dist/",
-  "sentry:sourcemaps": "sentry-cli releases new $SENTRY_RELEASE && sentry-cli sourcemaps upload --release $SENTRY_RELEASE --org adobe-h6 --project node ./dist"
+    "sentry:sourcemaps": "sentry-cli releases new $SENTRY_RELEASE && sentry-cli sourcemaps upload --release $SENTRY_RELEASE --org adobe-h6 --project node ./dist"
   },
   "repository": {
     "type": "git",
@@ -28,7 +28,6 @@
   "dependencies": {
     "@sentry/cli": "^2.42.4",
     "@sentry/node": "^7.120.3",
-    "axios": "^1.8.3",
     "copyfiles": "^2.4.1",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
