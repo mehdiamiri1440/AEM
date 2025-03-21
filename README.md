@@ -13,7 +13,10 @@
 - **🩺 Health Check:** [`/health`](https://aem-production.up.railway.app/health)
 
 ---
-
+## The full functional app is available at the following urls:
+    https://aem-production.up.railway.app/api-docs
+    https://aem-production.up.railway.app
+    
 ## ⚙️ Core Functionality
 
 ### ➤ API Endpoint
