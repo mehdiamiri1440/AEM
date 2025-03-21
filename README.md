@@ -4,8 +4,8 @@ An end-to-end production-grade Express.js application built for the Adobe AEM te
 
 ---
 ## The full functional app is available at the following urls:
-    https://aem-production.up.railway.app/
     https://aem-production.up.railway.app/api-docs
+    https://aem-production.up.railway.app
     
 ## ⚙️ Core Functionality
 
