@@ -1,0 +1,17 @@
+{
+  "dashboard": {
+    "title": "Node.js API Monitoring",
+    "panels": [
+      {
+        "title": "API Requests",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "http_requests_total",
+            "legendFormat": "Total Requests"
+          }
+        ]
+      }
+    ]
+  }
+}

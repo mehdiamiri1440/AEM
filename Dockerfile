@@ -1,4 +1,4 @@
-# Build step
+# Build Step
 FROM node:18-alpine AS build
 WORKDIR /app
 
@@ -6,25 +6,23 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# Copy the rest of the files
+# Copy source code and build
 COPY . .
-
-# Ensure TypeScript is compiled, and Swagger files are copied correctly
 RUN npm run build
 
-# Explicitly copy the Swagger YAML files
+# Copy Swagger files separately
 RUN mkdir -p dist/swagger && cp -r src/swagger/* dist/swagger/
 
-# Production step
+# Production Step
 FROM node:18-alpine
 WORKDIR /app
 
-# Copy built project and dependencies
+# Copy built app and dependencies
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package.json ./package.json
 
-# Ensure Swagger files are included in the final image
+# Copy Swagger files
 COPY --from=build /app/dist/swagger ./dist/swagger
 
 EXPOSE 8080
